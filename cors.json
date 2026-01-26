@@ -1,0 +1,11 @@
+[
+  {
+    "origin": [
+      "https://clipboard.mistercoderz.com",
+      "https://copy-paste-b7848.web.app"
+    ],
+    "method": ["GET", "POST", "PUT", "DELETE", "HEAD"],
+    "responseHeader": ["Content-Type", "Authorization"],
+    "maxAgeSeconds": 3600
+  }
+]
