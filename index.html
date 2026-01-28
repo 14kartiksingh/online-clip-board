@@ -1,215 +1,549 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Mister Coderz</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="shortcut icon" href="MISTER CODERZ (1).png" type="image/x-icon">
-<style>
-.popup{
-  position:fixed;top:20px;right:20px;
-  background:#4caf50;color:white;
-  padding:12px 18px;border-radius:6px;
-  font-size:14px;display:none;z-index:999
-}
-.popup.error{background:#f44336}
 
-body{
-  font-family:Segoe UI,Tahoma;
-  background:linear-gradient(135deg,#667eea,#764ba2);
-  min-height:100vh;display:flex;
-  align-items:center;justify-content:center
-}
-.container{
-  background:#fff;width:500px;
-  padding:30px;border-radius:12px
-}
-h1{text-align:center;margin-bottom:10px}
-.helper{text-align:center;color:#666;font-size:14px;margin-bottom:20px}
-label{font-weight:600;margin-top:15px;display:block}
-textarea,input{
-  width:100%;padding:10px;margin-top:6px;
-  border-radius:6px;border:2px solid #ddd
-}
-button{
-  width:100%;margin-top:12px;padding:12px;
-  background:#667eea;color:#fff;border:none;
-  border-radius:6px;font-weight:bold;cursor:pointer
-}
-button:hover{background:#764ba2}
-#codeBox{
-  margin-top:10px;border:2px dashed #667eea;
-  padding:15px;text-align:center;
-  font-weight:bold;cursor:pointer
-}
-.progress{
-  height:6px;background:#eee;border-radius:10px;
-  margin-top:10px;overflow:hidden
-}
-.progress div{
-  height:100%;width:0;background:#667eea
-}
-.status{text-align:center;font-size:13px;margin-top:8px}
-</style>
+<head>
+  <meta charset="UTF-8">
+  <title>Mister Coderz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="MISTER CODERZ (1).png" type="image/x-icon">
+  <script src="https://pl28593717.effectivegatecpm.com/a8/0a/af/a80aaf7cf69dd9754a7d9fcfd1e409e7.js"></script>
+  <!-- <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <!-- <title>Clipboard</title> -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    /* ===== THEME ===== */
+    :root {
+      --primary: #3498db;
+      --primary-dark: #2c82c9;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --muted: #64748b;
+    }
+
+    /* ===== LAYOUT ===== */
+    body {
+      min-height: 100vh;
+      display: flex;
+      background: var(--bg);
+    }
+
+    /* ===== SIDEBAR ===== */
+    aside {
+      width: 280px;
+      background: linear-gradient(160deg, var(--primary-dark), var(--primary));
+      color: white;
+      padding: 32px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 40px;
+    }
+
+    aside h4 {
+      font-size: 14px;
+      margin-bottom: 12px;
+      opacity: 0.9;
+    }
+
+    aside ul {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+
+    aside li {
+      font-size: 14px;
+      margin-bottom: 10px;
+      opacity: 0.9;
+    }
+
+    /* ===== MAIN ===== */
+    main {
+      flex: 1;
+      padding: 40px;
+    }
+
+    /* ===== HEADER ===== */
+    header h1 {
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    header p {
+      margin-top: 6px;
+      color: var(--muted);
+      max-width: 600px;
+    }
+
+    /* ===== GRID ===== */
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .section h3 {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    /* ===== INPUTS ===== */
+    textarea,
+    input[type="text"] {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 15px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    textarea:focus,
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    /* ===== FILE UPLOAD ===== */
+    .file-box {
+      border: 2px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 32px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      color: var(--muted);
+    }
+
+    .file-box i {
+      font-size: 26px;
+      color: var(--primary);
+    }
+
+    .file-box:hover {
+      border-color: var(--primary);
+      background: #eef6fc;
+    }
+
+    .file-box input {
+      display: none;
+    }
+
+    .file-name {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    /* ===== BUTTONS ===== */
+    button {
+      padding: 14px 22px;
+      border-radius: 12px;
+      border: none;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .secondary {
+      background: #f1f5f9;
+      color: var(--primary);
+    }
+
+    /* ===== CODE BOX ===== */
+    .code-box {
+      background: #f1f5f9;
+      padding: 24px;
+      border-radius: 14px;
+      text-align: center;
+      font-size: 22px;
+      letter-spacing: 3px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* ===== RETRIEVE ===== */
+    .retrieve {
+      grid-column: 1 / span 2;
+    }
+
+    .retrieve-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .retrieve-row input {
+      flex: 1;
+      letter-spacing: 1px;
+    }
+
+    /* ===== ADS ===== */
+    .ad-space {
+      margin-top: 24px;
+      height: 90px;
+      background: #e5e7eb;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+      }
+
+      aside {
+        width: 100%;
+        order: 2;
+      }
+
+      main {
+        order: 1;
+      }
+
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .retrieve {
+        grid-column: auto;
+      }
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #1e293b;
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 9999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .toast.success {
+      background: #16a34a;
+    }
+
+    .toast.error {
+      background: #dc2626;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
-<h1>Online Clipboard</h1>
-<p class="helper">Share text or files across devices. Expires in 12 hours.</p>
+  <!-- ===== SIDEBAR ===== -->
+  <aside>
+    <div class="logo">Clipboard</div>
 
-<label>Paste Text (optional)</label>
-<textarea id="text" rows="4"></textarea>
+    <h4>Features</h4>
+    <ul>
+      <li>Secure sharing</li>
+      <li>Text & files</li>
+      <li>Auto expiry</li>
+      <li>No login needed</li>
+    </ul>
 
-<label>OR Upload File (max 50 MB)</label>
-<input type="file" id="fileInput">
+    <h4>How it works</h4>
+    <ul>
+      <li>Paste or upload</li>
+      <li>Generate code</li>
+      <li>Retrieve content</li>
+    </ul>
 
-<div class="progress"><div id="bar"></div></div>
+    <script>
+      atOptions = {
+        'key': 'f72898b8887b74302e4fe0c23dcc8a6a',
+        'format': 'iframe',
+        'height': 200,
+        'width': 200,
+        'params': {}
+      };
+    </script>
+    <script src="https://www.highperformanceformat.com/f72898b8887b74302e4fe0c23dcc8a6a/invoke.js"></script>
+  </aside>
 
-<button onclick="save()">Generate Code</button>
+  <!-- ===== MAIN ===== -->
+  <main>
 
-<div id="codeBox" onclick="copyCode()">Click to copy code</div>
-<div class="status" id="status"></div>
+    <header>
+      <h1>Clipboard - Mister Coderz</h1>
+      <p>Share text or files using a temporary access code across devices.</p>
+    </header>
 
-<hr>
+    <div class="section-grid">
 
-<label>Enter Code</label>
-<input id="codeInput" style="text-transform:uppercase">
-<button onclick="getData()">Fetch</button>
+      <div class="section">
+        <h3>Paste text</h3>
+        <textarea id="text" placeholder="Paste notes, messages, or code you want to share securely…"></textarea>
+      </div>
 
-<textarea id="result" rows="4" placeholder="Text will appear here"></textarea>
-<button onclick="copyText()">Copy Text</button>
+      <div class="section">
+        <h3>Upload file</h3>
+        <label class="file-box">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <span>Click to upload a file</span>
+          <small>Maximum size: 50 MB</small>
+          <input type="file" id="fileInput" onchange="showFileName()">
+        </label>
+        <div class="file-name" id="fileName"></div>
+      </div>
 
-<a id="downloadLink" style="display:none" target="_blank">
-  <button>Download File</button>
-</a>
-</div>
+      <div class="section">
+        <h3>Get Sharable Code</h3>
+        <button class="primary" onclick="save()">Get Code</button>
+      </div>
 
-<div id="popup" class="popup"></div>
+      <div class="section">
+        <h3>Your Code</h3>
+        <div class="code-box" id="codeBox" onclick="copyCode()">NO CODE YET</div>
+      </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, serverTimestamp, Timestamp }
-  from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL }
-  from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
-import { getAuth, signInAnonymously }
-  from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+      <div class="section retrieve">
+        <h3>Retrieve shared content</h3>
 
-/* 🔹 Firebase config */
-const firebaseConfig = {
-  apiKey: "AIzaSyAz7RGQ309YxnbdTh8UsIPx1MSXBp6JdAs",
-  authDomain: "copy-paste-b7848.firebaseapp.com",
-  projectId: "copy-paste-b7848",
-  storageBucket: "copy-paste-b7848.firebasestorage.app",
-  messagingSenderId: "1003219641375",
-  appId: "1:1003219641375:web:937115921bd59051f3a12a"
-};
+        <div class="retrieve-row">
+          <input id="codeInput" maxlength="6" placeholder="Enter your secure 6-character access code"
+            oninput="this.value = this.value.toUpperCase()" />
 
-/* 🔹 Init Firebase */
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const storage = getStorage(
-  app,
-  "gs://copy-paste-b7848.firebasestorage.app"
-);
 
-const auth = getAuth(app);
+          <button class="primary" onclick="getData()">Retrieve</button>
+        </div>
 
-/* 🔹 Anonymous Auth (REQUIRED) */
-await signInAnonymously(auth);
-console.log("Anonymous auth success");
-window.copyCode = () => {
-  const code = document.getElementById("codeBox").textContent.trim();
-  if (!code) return;
-  navigator.clipboard.writeText(code);
-  showPopup("Code copied");
-};
+        <textarea id="result" readonly
+          placeholder="Your retrieved text or file details will appear here once the code is verified…">
+        </textarea>
+      </div>
 
-/* 🔹 Helpers */
-function showPopup(msg, error=false){
-  const p = document.getElementById("popup");
-  p.textContent = msg;
-  p.className = "popup" + (error ? " error" : "");
-  p.style.display = "block";
-  setTimeout(()=>p.style.display="none",2500);
-}
+      <a id="downloadLink" style="display:none" target="_blank">
+        <button class="secondary">Download File</button>
+      </a>
+    </div>
 
-function genCode(){
-  const c="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  return Array.from({length:6},()=>c[Math.floor(Math.random()*c.length)]).join("");
-}
+    <div id="toast" class="toast"></div>
 
-/* 🔹 SAVE */
-window.save = async () => {
-  const text = document.getElementById("text").value.trim();
-  const file = document.getElementById("fileInput").files[0];
-  const bar = document.getElementById("bar");
-  const status = document.getElementById("status");
 
-  if (!text && !file) return showPopup("Add text or file", true);
-  if (file && file.size > 50 * 1024 * 1024) return showPopup("Max 50MB", true);
+    <!-- <div class="ad-space">Pop-under / Interstitial Ad</div> -->
+    <script async="async" data-cfasync="false"
+      src="https://pl28593794.effectivegatecpm.com/d1a2d0f9cd56ed3a6565893a1249c5b8/invoke.js"></script>
+    <div id="container-d1a2d0f9cd56ed3a6565893a1249c5b8"></div>
 
-  bar.style.width = "0%";
-  status.textContent = "Uploading...";
+  </main>
 
-  const code = genCode();
-  const expiresAt = Timestamp.fromDate(new Date(Date.now() + 12*60*60*1000));
-  let data = { createdAt: serverTimestamp(), expiresAt };
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getFirestore, doc, setDoc, getDoc, serverTimestamp, Timestamp }
+      from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytesResumable, getDownloadURL }
+      from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+    import { getAuth, signInAnonymously }
+      from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-  if (file) {
-    const fileRef = ref(storage, `files/${code}/${file.name}`);
-    const task = uploadBytesResumable(fileRef, file);
+    /* 🔹 Firebase config */
+    const firebaseConfig = {
+      apiKey: "AIzaSyAz7RGQ309YxnbdTh8UsIPx1MSXBp6JdAs",
+      authDomain: "copy-paste-b7848.firebaseapp.com",
+      projectId: "copy-paste-b7848",
+      storageBucket: "copy-paste-b7848.firebasestorage.app",
+      messagingSenderId: "1003219641375",
+      appId: "1:1003219641375:web:937115921bd59051f3a12a"
+    };
 
-    await new Promise((resolve, reject) => {
-      task.on("state_changed",
-        s => bar.style.width = (s.bytesTransferred / s.totalBytes * 100) + "%",
-        e => reject(e),
-        async () => {
-          data.type = "file";
-          data.fileName = file.name;
-          data.fileUrl = await getDownloadURL(task.snapshot.ref);
-          resolve();
-        }
+    /* 🔹 Init */
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+    await signInAnonymously(getAuth(app));
+
+    /* 🔹 Utils */
+    function genCode() {
+      const c = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      return Array.from({ length: 6 }, () => c[Math.floor(Math.random() * c.length)]).join("");
+    }
+    function showToast(message, type = "success") {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.className = `toast show ${type}`;
+
+      setTimeout(() => {
+        toast.className = "toast";
+      }, 2500);
+    }
+
+    function showMsg(msg) {
+      alert(msg); // safe fallback (no missing popup div)
+    }
+
+    /* 🔹 SAVE */
+    window.save = async () => {
+      const text = document.getElementById("text").value.trim();
+      const file = document.getElementById("fileInput").files[0];
+
+      if (!text && !file) {
+        showMsg("Add text or file");
+        return;
+      }
+
+      if (file && file.size > 50 * 1024 * 1024) {
+        showToast("Max file size is 50MB","sucess");
+        return;
+      }
+
+      const code = genCode();
+      const expiresAt = Timestamp.fromDate(
+        new Date(Date.now() + 12 * 60 * 60 * 1000)
       );
-    });
-  }
 
-  if (text) {
-    data.type = data.type || "text";
-    data.text = text;
-  }
+      let data = {
+        createdAt: serverTimestamp(),
+        expiresAt
+      };
 
-  await setDoc(doc(db,"clipboard",code),data);
+      try {
+        if (file) {
+          const fileRef = ref(storage, `files/${code}/${file.name}`);
+          const task = uploadBytesResumable(fileRef, file);
 
-  document.getElementById("codeBox").textContent = code;
-  status.textContent = "Done";
-  showPopup("Upload successful");
-};
+          await new Promise((resolve, reject) => {
+            task.on("state_changed", null, reject, async () => {
+              data.type = "file";
+              data.fileName = file.name;
+              data.fileUrl = await getDownloadURL(task.snapshot.ref);
+              resolve();
+            });
+          });
+        }
 
-/* 🔹 FETCH */
-window.getData = async () => {
-  const code = document.getElementById("codeInput").value.trim().toUpperCase();
-  const snap = await getDoc(doc(db,"clipboard",code));
-  if(!snap.exists()) return showPopup("Invalid / expired", true);
+        if (text) {
+          data.type = data.type || "text";
+          data.text = text;
+        }
 
-  const d = snap.data();
-  document.getElementById("result").value = d.text || "";
+        await setDoc(doc(db, "clipboard", code), data);
+        document.getElementById("codeBox").textContent = code;
+        showToast("Code generated","sucess");
 
-  const a = document.getElementById("downloadLink");
-  if(d.fileUrl){
-    a.href = d.fileUrl;
-    a.style.display = "block";
-  }
-  showPopup("Fetched successfully");
-};
+      } catch (err) {
+        console.error(err);
+        showToast("Upload failed","sucess");
+      }
+    };
+    window.showFileName = () => {
+      const file = document.getElementById("fileInput").files[0];
+      document.getElementById("fileName").textContent = file ? file.name : "";
+    };
 
-/* 🔹 COPY */
-window.copyText = () => {
-  const t = document.getElementById("result").value;
-  if(t){ navigator.clipboard.writeText(t); showPopup("Copied"); }
-};
-</script>
+    /* 🔹 FETCH */
+    window.getData = async () => {
+      const code = document.getElementById("codeInput").value.trim().toUpperCase();
+      if (!code) return;
+
+      const snap = await getDoc(doc(db, "clipboard", code));
+      if (!snap.exists()) {
+        showToast("Invalid or expired code", "error");
+        return;
+      }
+
+      const d = snap.data();
+
+      if (d.expiresAt && d.expiresAt.toDate() < new Date()) {
+        showToast("This code has expired", "error");
+        return;
+      }
+
+      const resultBox = document.getElementById("result");
+      const downloadLink = document.getElementById("downloadLink");
+
+      if (d.type === "text") {
+        resultBox.value = d.text || "";
+        downloadLink.style.display = "none";
+      }
+
+      if (d.type === "file") {
+        resultBox.value = `File available: ${d.fileName}`;
+        downloadLink.href = d.fileUrl;
+        downloadLink.style.display = "inline-block";
+      }
+
+      showToast("Data fetched", "sucess");
+
+    };
+
+    /* 🔹 COPY */
+    window.copyCode = () => {
+      const code = document.getElementById("codeBox").textContent.trim();
+      if (!code || code === "NO CODE YET") return;
+      navigator.clipboard.writeText(code);
+      showToast("Code copied", "sucess");
+    };
+
+    window.copyText = () => {
+      const t = document.getElementById("result").value;
+      if (t) {
+        navigator.clipboard.writeText(t);
+        showToast("Text copied", "sucess");
+      }
+    };
+  </script>
+
 </body>
+
 </html>
